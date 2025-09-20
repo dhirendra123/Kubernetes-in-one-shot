@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nginx-job
+  namespace: nginx
+spec:
+  completions: 1         # Total successful completions require
+  parallelism: 1        # Number of pods to run in parallel
+  template:
+    metadata:
+      name: example-job-pod
+    spec:
+      containers:
+      - name: job-container
+        image: busybox
+        command: ["sh", "-c", "echo Hello Kubernetes! && sleep 10"]
+      restartPolicy: Never
